@@ -9,13 +9,13 @@ module Color
   MISS = "\033[0;37m"
 end
 
+# функция которая окрашивает текст в заданный цвет.
 def set_color(text, color)
   color + text + Color::RESET
 end
 
 # "клетка". Здесь мы задаем и визуальное отображение клеток и их цвет.
 module Cell
-  # функция которая окрашивает текст в заданный цвет.
   EMPTY_CELL = set_color('·', Color::RESET)
   SHIP_CELL = set_color('S', Color::YELLOW)
   DESTROYED_SHIP = set_color('S', Color::RED)

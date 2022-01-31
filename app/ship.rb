@@ -2,7 +2,6 @@
 
 # Корабль. Хранит координаты и свои HP.
 class Ship
-  include Cell
   attr_accessor :x_pos, :y_pos, :width, :height, :hp
 
   def initialize(size, x_pos, y_pos, rotation)

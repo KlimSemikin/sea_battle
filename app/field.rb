@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'helpers'
 
 # Поле. Будет состоять из двух частей: основная карта и радар.
 # Поле будет проверять возможность расположения кораблей, расставлять корабли, уничтожать их.
 class Field
-  include FieldPart
-  include Cell
   attr_accessor :radar, :size, :map
 
   def initialize(size)
