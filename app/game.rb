@@ -11,10 +11,13 @@ class Game
   SHIPS_RULES = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4].freeze
   FIELD_SIZE = LETTERS.size
 
-  def initialize(player)
+  def initialize
+    @status = 'prepare'
+  end
+
+  def add_player(player)
     @player = player
     ships_setup(player)
-    @status = 'prepare'
   end
 
   # функция переключения статусов
@@ -22,8 +25,8 @@ class Game
     if @status == 'prepare' && @player
       @status = 'in game'
       true
-    # переключаем в статус game over если у врага осталось 0 кораблей.
-    elsif @status == 'in game' && @player.enemy_ships.empty?
+    # переключаем в статус game over если у врага осталось 0 кораблей или он сдался.
+    elsif @status == 'in game' && (@player.enemy_ships.empty? || @player.shame)
       @status = 'game over'
       true
     end
@@ -31,7 +34,6 @@ class Game
 
   # делаем расстановку кораблей по правилам заданным в классе Game
   def ships_setup(player)
-    puts 'Ships placement process...'
     Game::SHIPS_RULES.sort_by { rand }.each do |ship_size|
       ship = Ship.new(ship_size, 0, 0, 0)
       loop do
@@ -56,5 +58,9 @@ class Game
 
   def clear_screen
     Gem.win_platform? ? (system 'cls') : (system 'clear')
+  end
+
+  def send_mess_to_player(answers, player, result)
+    player.message << answers[result]
   end
 end
